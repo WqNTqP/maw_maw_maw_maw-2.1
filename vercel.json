@@ -1,6 +1,6 @@
 {
     "builds": [{
-        "src": "maw_maw_maw_maw 2/wsgi.py",
+        "src": "Emping_drf 2/wsgi.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb", "runtime": "python3.12" }
     },
@@ -16,7 +16,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "maw_maw_maw_maw 2/wsgi.py"
+            "dest": "Emping_drf 2/wsgi.py"
         }
     ]
 }
