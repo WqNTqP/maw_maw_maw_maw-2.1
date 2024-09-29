@@ -1,24 +1,10 @@
-from django.urls import path, include
-from .views import (Snippet)
-from .views import (Author)
-from .views import (Book)
-from .views import (Category)
+from django.urls import path
+from .views import SnippetViewSet, AuthorViewSet, BookViewSet, CategoryViewSet
 
 urlpatterns = [
-    path('snippet', Snippet.as_view({
-        'get':'list',
-        'post':'post',
-    })),
-    path('author', Author.as_view({
-        'get':'list',
-        'post':'post',
-    })),
-    path('book', Book.as_view({
-        'get':'list',
-        'post':'post',
-    })),
-    path('category', Category.as_view({
-        'get':'list',
-        'post':'post',
-    }))
+    path('', SnippetViewSet.as_view({'get': 'list'})),  # Add this line
+    path('snippet', SnippetViewSet.as_view({'get': 'list', 'post': 'post'})),
+    path('author', AuthorViewSet.as_view({'get': 'list', 'post': 'post'})),
+    path('book', BookViewSet.as_view({'get': 'list', 'post': 'post'})),
+    path('category', CategoryViewSet.as_view({'get': 'list', 'post': 'post'})),
 ]
