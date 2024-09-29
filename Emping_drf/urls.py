@@ -16,15 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from book.views import SnippetViewSet, AuthorViewSet, BookViewSet, CategoryViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include([
-        path('', SnippetViewSet.as_view({'get': 'list'})),  # Add this line
-        path('snippet', SnippetViewSet.as_view({'get': 'list', 'post': 'post'})),
-        path('author', AuthorViewSet.as_view({'get': 'list', 'post': 'post'})),
-        path('book', BookViewSet.as_view({'get': 'list', 'post': 'post'})),
-        path('category', CategoryViewSet.as_view({'get': 'list', 'post': 'post'})),
+        path('book/', include('book.urls')),
     ]))
 ]
