@@ -9,11 +9,6 @@ urlpatterns = [
         'get':'list',
         'post':'post',
     })),
-    path('<int:pk>', Snippet.as_view({
-        'put':'put',
-        'patch' : 'patch',
-        'get' :'get',
-    })),
     path('author', Author.as_view({
         'get':'list',
         'post':'post',
