@@ -6,7 +6,9 @@ from .serialixers import BookSerializers
 from .serialixers import CategorySerializers
 from rest_framework.response import Response
 from rest_framework import status
-
+from .models import User
+from rest_framework import generics
+from .serialixers import UserSerializer
 # Create your views here.
 
 # def put(self, request, pk, format=None):
@@ -34,6 +36,7 @@ from rest_framework import status
 #         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+
 class Snippet (ModelViewSet):
     serializer_class = SnippetSerializers
 
@@ -49,6 +52,37 @@ class Snippet (ModelViewSet):
             serializer.save()
             return Response(serializer.data, status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, pk, format=None):
+        Snippet = self.serializer_class.Meta.model.objects.get(id=pk)
+        serializer = SnippetSerializers(Snippet, request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk, format=None):
+        Snippet = self.serializer_class.Meta.model.objects.get(id=pk)
+        serializer = SnippetSerializers(Snippet, request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, pk, *args, **kwargs):
+        try:
+            article = self.serializer_class.Meta.model.objects.get(id=pk)
+            serializer = self.serializer_class(article)
+            return Response(serializer.data)
+        except self.serializer_class.Meta.model.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    def delete(self,request,pk,*args,**kwargs):
+        try:
+            self.serializer_class.Meta.model.objects.get(id=pk).delete()
+            return Response(status=status.HTTP_200_OK)
+        except self.serializer_class.Meta.model.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class Author (ModelViewSet):
@@ -66,6 +100,37 @@ class Author (ModelViewSet):
             serializer.save()
             return Response(serializer.data, status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, pk, format=None):
+        Author = self.serializer_class.Meta.model.objects.get(id=pk)
+        serializer = AuthorSerializers(Author, request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk, format=None):
+        Author = self.serializer_class.Meta.model.objects.get(id=pk)
+        serializer = AuthorSerializers(Author, request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, pk, *args, **kwargs):
+        try:
+            article = self.serializer_class.Meta.model.objects.get(id=pk)
+            serializer = self.serializer_class(article)
+            return Response(serializer.data)
+        except self.serializer_class.Meta.model.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    def delete(self,request,pk,*args,**kwargs):
+        try:
+            self.serializer_class.Meta.model.objects.get(id=pk).delete()
+            return Response(status=status.HTTP_200_OK)
+        except self.serializer_class.Meta.model.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 class Book (ModelViewSet):
     serializer_class = BookSerializers
@@ -82,6 +147,37 @@ class Book (ModelViewSet):
             serializer.save()
             return Response(serializer.data, status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, pk, format=None):
+        Book = self.serializer_class.Meta.model.objects.get(id=pk)
+        serializer = BookSerializers(Book, request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk, format=None):
+        Book = self.serializer_class.Meta.model.objects.get(id=pk)
+        serializer = BookSerializers(Book, request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, pk, *args, **kwargs):
+        try:
+            article = self.serializer_class.Meta.model.objects.get(id=pk)
+            serializer = self.serializer_class(article)
+            return Response(serializer.data)
+        except self.serializer_class.Meta.model.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    def delete(self,request,pk,*args,**kwargs):
+        try:
+            self.serializer_class.Meta.model.objects.get(id=pk).delete()
+            return Response(status=status.HTTP_200_OK)
+        except self.serializer_class.Meta.model.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class Category (ModelViewSet):
@@ -99,3 +195,47 @@ class Category (ModelViewSet):
             serializer.save()
             return Response(serializer.data, status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, pk, format=None):
+        Category = self.serializer_class.Meta.model.objects.get(id=pk)
+        serializer = CategorySerializers(Category, request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk, format=None):
+        Category = self.serializer_class.Meta.model.objects.get(id=pk)
+        serializer = CategorySerializers(Category, request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, pk, *args, **kwargs):
+        try:
+            article = self.serializer_class.Meta.model.objects.get(id=pk)
+            serializer = self.serializer_class(article)
+            return Response(serializer.data)
+        except self.serializer_class.Meta.model.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    def delete(self,request,pk,*args,**kwargs):
+        try:
+            self.serializer_class.Meta.model.objects.get(id=pk).delete()
+            return Response(status=status.HTTP_200_OK)
+        except self.serializer_class.Meta.model.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+            serializer = self.get_serializer(instance)
+            return Response(serializer.data)
+        except User.DoesNotExist:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)

@@ -3,6 +3,7 @@ from .models import Snippet
 from .models import Author
 from .models import Book
 from .models import Category
+from .models import User
 
 class SnippetSerializers(serializers.ModelSerializer):
     class Meta:
@@ -23,3 +24,8 @@ class CategorySerializers(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__' 
